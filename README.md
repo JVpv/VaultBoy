@@ -5,7 +5,7 @@ VaultBoy é um aplicativo de gerenciamento de senhas inspirado no Pip-Boy de Fal
 
 ## Objetivo
 
-Demonstrar, na prática, o uso recursos nativos de segurança do iOS como fundação do desenvolvimento de um aplicativo, minimizando a dívida técnica de escalabilidade futura.
+Demonstrar, na prática, o uso de recursos nativos de segurança do iOS como fundação do desenvolvimento de um aplicativo, minimizando a dívida técnica de escalabilidade futura.
 
 ## Funcionalidades
 

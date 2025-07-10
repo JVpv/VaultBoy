@@ -11,7 +11,7 @@ import SwiftUI
 struct VaultBoyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PasswordListView()
         }
     }
 }
