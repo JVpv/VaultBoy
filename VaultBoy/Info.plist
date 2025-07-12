@@ -5,9 +5,6 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Overseer.otf</string>
-		<string>Overseer Bold.otf</string>
-		<string>Overseer Bold Italic.otf</string>
-		<string>Overseer Italic.otf</string>
 	</array>
 </dict>
 </plist>

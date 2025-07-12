@@ -1,4 +1,3 @@
-
 # VaultBoy
 
 VaultBoy é um aplicativo de gerenciamento de senhas inspirado no Pip-Boy de Fallout, desenvolvido com foco total em segurança, para demonstrar práticas de segurança no desenvolvimento iOS com Swift, utilizando Keychain, biometria e boas práticas de criptografia.
@@ -38,11 +37,16 @@ Demonstrar, na prática, o uso de recursos nativos de segurança do iOS como fun
 
 ```
 VaultBoy/
+├── Extensions/
+│   └── Color.swift
+├── Font/
+│   └── Overseer.otf
 ├── Models/
 │   └── PasswordEntry.swift
 ├── Views/
 │   └── PasswordListView.swift
 │   └── AddPasswordView.swift
+│   └── MainScreenView.swift
 ├── ViewModels/
 │   └── VaultViewModel.swift
 ├── Services/
