@@ -10,5 +10,6 @@ import Foundation
 struct PasswordEntry: Identifiable {
     var id = UUID()
     var service: String
+    var account: String
     var password: String
 }

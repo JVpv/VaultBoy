@@ -12,6 +12,7 @@ struct AddPasswordView: View {
     @Binding var viewModel: VaultViewModel
     @State private var showAddPassword = false
     @State var service: String = ""
+    @State var account: String = ""
     @State private var showingAlert = false
     private let placeholderTextInsets: EdgeInsets = EdgeInsets(top: 0, leading: 31, bottom: 0, trailing: 0)
     
@@ -25,10 +26,17 @@ struct AddPasswordView: View {
                     TextField("", text: $service)
                         .padding().foregroundStyle(Color(hex: vaultBoyGreen)).border(Color(hex: vaultBoyGreen), width: 2).cornerRadius(2).padding()
                 }
+                ZStack(alignment: .leading) {
+                    if account == "" {
+                        Text("Digite o nome de usuário...").foregroundStyle(Color(hex: vaultBoyGreen)).padding(placeholderTextInsets)
+                    }
+                    TextField("", text: $account)
+                        .padding().foregroundStyle(Color(hex: vaultBoyGreen)).border(Color(hex: vaultBoyGreen), width: 2).cornerRadius(2).padding()
+                }
             }
             Button {
                 if showAddPassword {
-                    viewModel.generateRandomPassword(service: service)
+                    viewModel.generateRandomPassword(service: service, account: account)
                     showingAlert.toggle()
                 }
                 showAddPassword.toggle()
@@ -39,6 +47,7 @@ struct AddPasswordView: View {
         }.alert("Nova senha criada para \(service).", isPresented: $showingAlert) {
             Button("OK", role: .cancel) {
                 service = ""
+                account = ""
             }
         }
     }

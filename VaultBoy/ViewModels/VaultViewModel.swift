@@ -9,32 +9,40 @@ import Foundation
 import Security
 import SwiftUI
 
-class VaultViewModel: ObservableObject {
-    @Published var passwordEntries = [
-        PasswordEntry(service: "Gmail", password: "p@ssw0rd"),
-        PasswordEntry(service: "AdventureQuestWorlds", password: "$3cretP@ssw0rd"),
-        PasswordEntry(service: "GitHub", password: "Ch4r1z@rd")
-    ]
-    
-    func generateRandomPassword(service: String) {
-        let passwordLength = Int.random(in: 12...16)
-        var password = ""
+import SwiftUI
 
-        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|;:,.<>?/~`"
-        var randomBytes = [UInt8](repeating: 0, count: passwordLength)
+class VaultViewModel: ObservableObject {
+    
+    @Published var passwordEntries: [PasswordEntry] = []
+    
+    // Salvar nova senha no Keychain
+    func addPassword(service: String, account: String, password: String) {
+        // Salva a senha no Keychain
+        let success = KeychainService.shared.savePassword(service: service, account: account, password: password)
         
-        let result = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
-        
-        if result == errSecSuccess {
-            for _ in randomBytes {
-                password.append(characters.randomElement()!)
-            }
-        } else {
-            // TODO: Bolar uma solução alternativa ou um aviso de erro
-            print("Erro ao tentar gerar uma senha")
+        // Se for bem-sucedido, atualiza a lista de senhas
+        if success {
+            let newEntry = PasswordEntry(id: UUID(), service: service, account: account, password: password)
+            passwordEntries.append(newEntry)
         }
+    }
+    
+    // Recuperar senhas do Keychain
+    func loadPasswords(account: String) {
+        let services = ["Google", "Facebook", "Instagram"] // Lista de serviços que você vai buscar
         
-        let newPassword = PasswordEntry(service: service, password: password)
+        for service in services {
+            if let password = KeychainService.shared.getPassword(service: service, account: account) {
+                let entry = PasswordEntry(id: UUID(), service: service, account: account, password: password)
+                passwordEntries.append(entry)
+            }
+        }
+    }
+    
+    func generateRandomPassword(service: String, account: String) {
+        let password = GenerateRandomPassword.shared.generateRandomPassword()
+        
+        let newPassword = PasswordEntry(service: service, account: account, password: password)
         passwordEntries.append(newPassword)
     }
 }
